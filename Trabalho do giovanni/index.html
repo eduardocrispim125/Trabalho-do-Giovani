@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101720">
+<title>Industrial Pro | Controle de Produção</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside class="sidebar">
+    <div class="brand">
+    <div class="brand-icon">IP</div>
+    <div>
+        <strong>INDUSTRIAL PRO</strong>
+        <small>Production Control</small>
+    </div>
+    </div>
+
+    <div class="nav-label">MENU PRINCIPAL</div>
+    <a class="nav-link active" href="#dashboard">▦ &nbsp; Painel geral</a>
+    <a class="nav-link" href="#producao">▤ &nbsp; Produção</a>
+    <a class="nav-link" href="#paragens">◷ &nbsp; Paragens</a>
+    <a class="nav-link" href="#historico">☷ &nbsp; Histórico</a>
+
+    <div class="sidebar-bottom">
+    <span class="status-dot"></span>
+    Sistema operacional
+    <small>Versão 1.0 · Local</small>
+    </div>
+</aside>
+
+<main class="main-content">
+    <header class="topbar">
+    <div>
+        <div class="eyebrow">GESTÃO INDUSTRIAL / OPERAÇÕES</div>
+        <h1>Painel de produção</h1>
+        <p class="subtitle">Acompanha a eficiência e o desempenho da tua linha.</p>
+    </div>
+
+    <div class="date-box">
+        <label for="filtroData">DATA DE ANÁLISE</label>
+        <input type="date" id="filtroData">
+        <button class="btn btn-secondary" id="hojeBtn" type="button">
+        Hoje
+        </button>
+    </div>
+    </header>
+
+    <section class="section-heading" id="dashboard">
+    <div>
+        <h2>Visão geral</h2>
+        <p>Indicadores do dia selecionado</p>
+    </div>
+    <span class="live-label"><span class="status-dot"></span> DADOS LOCAIS</span>
+    </section>
+
+    <section class="kpi-grid">
+    <article class="kpi-card">
+        <div class="kpi-top">
+        <span>Produção realizada</span>
+        <span class="kpi-icon green">▥</span>
+        </div>
+        <div class="kpi-value" id="totalProduzido">0</div>
+        <div class="kpi-foot">Peças produzidas</div>
+        <div class="progress-track">
+        <div class="progress-fill green-fill" id="barraMeta"></div>
+        </div>
+        <div class="kpi-bottom">
+        <span>Cumprimento da meta</span>
+        <strong id="cumprimentoMeta">0%</strong>
+        </div>
+    </article>
+
+    <article class="kpi-card">
+        <div class="kpi-top">
+        <span>Eficiência temporal</span>
+        <span class="kpi-icon blue">◴</span>
+        </div>
+        <div class="kpi-value" id="eficiencia">0%</div>
+        <div class="kpi-foot">Tempo disponível após paragens</div>
+        <div class="progress-track">
+        <div class="progress-fill blue-fill" id="barraEficiencia"></div>
+        </div>
+        <div class="kpi-bottom">
+        <span>Tempo produtivo estimado</span>
+        <strong id="tempoProdutivo">0 min</strong>
+        </div>
+    </article>
+
+    <article class="kpi-card">
+        <div class="kpi-top">
+        <span>Peças rejeitadas</span>
+        <span class="kpi-icon red">!</span>
+        </div>
+        <div class="kpi-value" id="totalRejeitadas">0</div>
+        <div class="kpi-foot">Peças não conformes</div>
+        <div class="kpi-bottom">
+        <span>Taxa de rejeição</span>
+        <strong id="taxaRejeicao">0%</strong>
+        </div>
+    </article>
+
+    <article class="kpi-card">
+        <div class="kpi-top">
+        <span>Tempo de paragem</span>
+        <span class="kpi-icon orange">◷</span>
+        </div>
+        <div class="kpi-value" id="totalParagens">0 <small>min</small></div>
+        <div class="kpi-foot">Tempo acumulado de paragens</div>
+        <div class="kpi-bottom">
+        <span>Ocorrências registadas</span>
+        <strong id="numeroParagens">0</strong>
+        </div>
+    </article>
+    </section>
+
+    <section class="content-grid">
+    <article class="panel" id="producao">
+        <div class="panel-heading">
+        <div>
+            <h2>Registar produção</h2>
+            <p>Insere os resultados do turno</p>
+        </div>
+        <span class="panel-symbol">＋</span>
+        </div>
+
+        <form id="formProducao">
+        <div class="form-grid">
+            <div class="field full">
+            <label for="dataProducao">Data</label>
+            <input type="date" id="dataProducao" required>
+            </div>
+            <div class="field">
+            <label for="meta">Meta de peças</label>
+        <input type="number" id="meta" min="1" step="1"
+                placeholder="Ex.: 1000" required>
+            </div>
+            <div class="field">
+              <label for="produzidas">Peças produzidas</label>
+              <input type="number" id="produzidas" min="0" step="1"
+                placeholder="Ex.: 850" required>
+            </div>
+            <div class="field">
+              <label for="rejeitadas">Peças rejeitadas</label>
+              <input type="number" id="rejeitadas" min="0" step="1"
+                value="0" required>
+            </div>
+            <div class="field">
+              <label for="tempoPlaneado">Tempo planeado (min)</label>
+              <input type="number" id="tempoPlaneado" min="1" step="1"
+                value="480" required>
+            </div>
+          </div>
+          <button class="btn btn-primary full-btn" type="submit">
+            ＋ Guardar produção
+          </button>
+        </form>
+      </article>
+
+      <article class="panel" id="paragens">
+        <div class="panel-heading">
+          <div>
+            <h2>Registar paragem</h2>
+            <p>Identifica as perdas de tempo</p>
+          </div>
+          <span class="panel-symbol orange-text">◷</span>
+        </div>
+
+        <form id="formParagem">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="dataParagem">Data</label>
+              <input type="date" id="dataParagem" required>
+            </div>
+            <div class="field">
+              <label for="maquina">Máquina / linha</label>
+              <input type="text" id="maquina"
+                placeholder="Ex.: Linha 01" required>
+            </div>
+            <div class="field">
+              <label for="duracao">Duração (min)</label>
+              <input type="number" id="duracao" min="1" step="1"
+                placeholder="Ex.: 25" required>
+            </div>
+            <div class="field full">
+              <label for="motivo">Motivo da paragem</label>
+              <select id="motivo" required>
+                <option value="">Seleciona um motivo</option>
+                <option>Falha mecânica</option>
+                <option>Falha elétrica</option>
+                <option>Falta de material</option>
+                <option>Manutenção planeada</option>
+                <option>Troca de ferramenta</option>
+                <option>Setup / mudança de referência</option>
+                <option>Falta de operador</option>
+                <option>Outros</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-warning full-btn" type="submit">
+            ＋ Registar paragem
+          </button>
+        </form>
+      </article>
+    </section>
+
+    <section class="panel history-panel" id="historico">
+      <div class="panel-heading history-heading">
+        <div>
+          <h2>Histórico de operações</h2>
+          <p>Registos da data selecionada</p>
+        </div>
+        <button class="btn btn-secondary" id="exportarBtn" type="button">
+          ↓ Exportar CSV
+        </button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Detalhe</th>
+              <th>Quantidade / duração</th>
+              <th>Data</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaHistorico">
+            <tr>
+              <td colspan="5" class="empty-state">
+                Ainda não existem registos para esta data.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="storage-note">
+        Os registos são guardados localmente neste navegador.
+      </p>
+    </section>
+
+    <footer>
+      INDUSTRIAL PRO <span>·</span> Painel de eficiência e produção
+    </footer>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
